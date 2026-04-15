@@ -1,16 +1,14 @@
 const express = require('express');
 const cors = require('cors');
+const errorHandler = require('./middleware/public/error.middleware');
 
 const app = express();
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Base Route
-app.get('/', (req, res) => {
-    res.send('SourceXCloud API is running...');
-});
+// Routes
+app.use('/api/public/courses', require('./routes/public/courses.routes'));
+app.use(errorHandler);
 
-// We export 'app' so Server.js can use it
 module.exports = app;

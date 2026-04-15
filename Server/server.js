@@ -4,13 +4,11 @@ const connectDB = require('./src/config/db');
 
 const PORT = process.env.PORT || 5000;
 
-// Start Sequence
 const startServer = async () => {
     try {
-        // 1. Connect to Database
+      
         await connectDB();
 
-        // 2. Start Express Server
         app.listen(PORT, () => {
             console.log(`Server is running on http://localhost:${PORT}`);
         });
