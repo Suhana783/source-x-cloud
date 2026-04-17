@@ -9,6 +9,15 @@ app.use(express.json());
 
 // Routes
 app.use('/api/public/courses', require('./routes/public/courses.routes'));
+app.use('/api/public/services', require('./routes/public/services.routes'));
+
+app.get('/', (req, res) => {
+    res.status(200).json({
+        success: true,
+        message: 'SourceXCloud API is running...',
+    });
+});
+
 app.use(errorHandler);
 
 module.exports = app;
