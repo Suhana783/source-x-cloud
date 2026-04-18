@@ -1,96 +1,53 @@
-const Service = require('../../models/public/services.model');
-const slugify = require('slugify');
+const serviceService = require('../../services/public/services.service');
+const asyncHandler = require('../../Utility/asyncHandler');
 
-exports.createService = async (req, res) => {
-  try {
-    const { title, description, icon, features, image, isActive } = req.body;
+exports.createService = asyncHandler(async (req, res) => {
+  const service = await serviceService.createServiceService(req.body);
 
-    const existingService = await Service.findOne({ title });
-    if (existingService) {
-      return res.status(400).json({ success: false, message: 'Service already exists' });
-    }
+  res.status(201).json({
+    success: true,
+    message: 'Service created successfully',
+    data: service,
+  });
+});
 
-    const slug = slugify(title, { lower: true, strict: true });
+exports.getAllServices = asyncHandler(async (req, res) => {
+  const services = await serviceService.getAllServicesService();
 
-    const service = new Service({
-      title,
-      slug,
-      description,
-      icon,
-      features,
-      image,
-      isActive,
-    });
+  res.status(200).json({
+    success: true,
+    count: services.length,
+    data: services,
+  });
+});
 
-    await service.save();
+exports.getServiceBySlug = asyncHandler(async (req, res) => {
+  const service = await serviceService.getServiceBySlugService(req.params.slug);
 
-    res.status(201).json({
-      success: true,
-      message: 'Service created successfully',
-      data: service,
-    });
-  } catch (error) {
-    res.status(500).json({ success: false, message: 'Error creating service', error: error.message });
-  }
-};
+  res.status(200).json({
+    success: true,
+    data: service,
+  });
+});
 
-exports.getAllServices = async (req, res) => {
-  try {
-    const services = await Service.find({ isActive: true }).sort({ createdAt: -1 });
-    res.status(200).json({ success: true, count: services.length, data: services });
-  } catch (error) {
-    res.status(500).json({ success: false, message: 'Error fetching services', error: error.message });
-  }
-};
+exports.updateService = asyncHandler(async (req, res) => {
+  const updatedService = await serviceService.updateServiceService(
+    req.params.id,
+    req.body
+  );
 
-exports.getServiceBySlug = async (req, res) => {
-  try {
-    const service = await Service.findOne({ slug: req.params.slug, isActive: true });
+  res.status(200).json({
+    success: true,
+    message: 'Service updated successfully',
+    data: updatedService,
+  });
+});
 
-    if (!service) {
-      return res.status(404).json({ success: false, message: 'Service not found' });
-    }
+exports.deleteService = asyncHandler(async (req, res) => {
+  await serviceService.deleteServiceService(req.params.id);
 
-    res.status(200).json({ success: true, data: service });
-  } catch (error) {
-    res.status(500).json({ success: false, message: 'Error fetching service', error: error.message });
-  }
-};
-
-exports.updateService = async (req, res) => {
-  try {
-    const { title } = req.body;
-    if (title) req.body.slug = slugify(title, { lower: true, strict: true });
-
-    const updatedService = await Service.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
-
-    if (!updatedService) {
-      return res.status(404).json({ success: false, message: 'Service not found' });
-    }
-
-    res.status(200).json({
-      success: true,
-      message: 'Service updated successfully',
-      data: updatedService,
-    });
-  } catch (error) {
-    res.status(500).json({ success: false, message: 'Error updating service', error: error.message });
-  }
-};
-
-exports.deleteService = async (req, res) => {
-  try {
-    const service = await Service.findByIdAndDelete(req.params.id);
-
-    if (!service) {
-      return res.status(404).json({ success: false, message: 'Service not found' });
-    }
-
-    res.status(200).json({ success: true, message: 'Service deleted successfully' });
-  } catch (error) {
-    res.status(500).json({ success: false, message: 'Error deleting service', error: error.message });
-  }
-};
+  res.status(200).json({
+    success: true,
+    message: 'Service deleted successfully',
+  });
+});

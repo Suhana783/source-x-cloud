@@ -18,6 +18,14 @@ app.get('/', (req, res) => {
     });
 });
 
+// 404 handler
+app.use((req, res, next) => {
+    const error = new Error(`Route not found - ${req.originalUrl}`);
+    error.statusCode = 404;
+    next(error);
+});
+
+// Global error handler
 app.use(errorHandler);
 
 module.exports = app;
