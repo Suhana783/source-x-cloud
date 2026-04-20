@@ -7,6 +7,8 @@ const serviceSchema = new mongoose.Schema({
   icon: String,
   features: [String],
   image: String,
+  tag: { type: String },
+  category: { type: String },
   isActive: { type: Boolean, default: true }
 }, { timestamps: true });
 
