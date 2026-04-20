@@ -1,8 +1,13 @@
+import Navbar from "../components/common/navbar";
+import HeroSercices from "../components/services/heroSercices.jsx";
+import CardService from "../components/services/CardService.jsx";
+
 export default function ServicesPage() {
-	return (
-		<main className="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-			<h1 className="text-3xl font-semibold text-slate-900">Services</h1>
-			<p className="mt-3 text-slate-600">Our services page is being prepared.</p>
-		</main>
-	);
+    return (
+        <main className="min-h-screen bg-white">
+            <Navbar />
+            <HeroSercices />
+            <CardService />
+        </main>
+    );
 }
