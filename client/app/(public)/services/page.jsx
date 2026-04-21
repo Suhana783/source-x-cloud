@@ -1,6 +1,7 @@
 import Navbar from "../components/common/navbar";
 import HeroSercices from "../components/services/heroSercices.jsx";
 import CardService from "../components/services/CardService.jsx";
+import Footer from "../components/common/footer";
 
 export default function ServicesPage() {
     return (
@@ -8,6 +9,7 @@ export default function ServicesPage() {
             <Navbar />
             <HeroSercices />
             <CardService />
+            <Footer />
         </main>
     );
 }

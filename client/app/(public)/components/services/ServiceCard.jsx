@@ -13,8 +13,9 @@ import {
   ShoppingCart,
   ArrowRight,
 } from "lucide-react";
+import Link from "next/link";
 
-// 🔥 Map backend string → icon component
+//  Map backend string → icon component
 const iconMap = {
   globe: Globe,
   code: Code2,
@@ -28,7 +29,7 @@ const iconMap = {
 };
 
 export default function ServiceCard({ service }) {
-  // ✅ Get correct icon or fallback
+  //  Get correct icon or fallback
   const Icon = iconMap[service.icon?.toLowerCase()] || Globe;
 
   return (
@@ -61,9 +62,12 @@ export default function ServiceCard({ service }) {
       </p>
 
       {/* CTA */}
-      <button className="text-xs text-blue-600 font-medium hover:underline flex items-center">
-        Request Service <span className="ml-1"><ArrowRight size={14} /></span>
-      </button>
+      <Link
+        href={`/services/${service.slug}`}
+        className="text-xs text-blue-600 font-medium hover:underline flex items-center"
+      >
+        View Service <span className="ml-1"><ArrowRight size={14} /></span>
+      </Link>
     </motion.div>
   );
 }       
