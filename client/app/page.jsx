@@ -1,16 +1,17 @@
 import Navbar from "./(public)/components/common/navbar";
 import Footer from "./(public)/components/common/footer";
+import Hero from "./(public)/components/home/hero";
 
 export default function Page() {
   return (
     <div className="flex flex-col min-h-screen">
-      
+
       {/* HEADER */}
       <Navbar />
 
-      {/* PAGE CONTENT */}
+      {/* MAIN CONTENT */}
       <main className="grow">
-        {/* Your content here */}
+        <Hero />
       </main>
 
       {/* FOOTER */}
