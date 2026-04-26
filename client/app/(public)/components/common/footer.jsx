@@ -34,41 +34,41 @@ export default function Footer() {
           </div>
 
           {/* SOCIAL ICONS */}
-            <div className="flex gap-4 mt-2">
+          <div className="flex gap-4 mt-2">
 
-                <a
-                    href="#"
-                    className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 
-                    hover:bg-[#2d7fa3] transition duration-300"
-                >
-                    <FaTwitter className="text-lg" />
-                </a>
+            <a
+              href="#"
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 
+              hover:bg-[#2d7fa3] transition duration-300"
+            >
+              <FaTwitter className="text-lg" />
+            </a>
 
-                <a
-                    href="#"
-                    className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 
-                    hover:bg-[#2d7fa3] transition duration-300"
-                >
-                    <FaLinkedin className="text-lg" />
-                </a>
+            <a
+              href="#"
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 
+              hover:bg-[#2d7fa3] transition duration-300"
+            >
+              <FaLinkedin className="text-lg" />
+            </a>
 
-                <a
-                    href="#"
-                    className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 
-                    hover:bg-[#2d7fa3] transition duration-300"
-                >
-                    <FaInstagram className="text-lg" />
-                </a>
+            <a
+              href="#"
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 
+              hover:bg-[#2d7fa3] transition duration-300"
+            >
+              <FaInstagram className="text-lg" />
+            </a>
 
-                <a
-                    href="#"
-                    className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 
-                    hover:bg-[#2d7fa3] transition duration-300"
-                >
-                    <FaWhatsapp className="text-lg" />
-                </a>
+            <a
+              href="#"
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 
+              hover:bg-[#2d7fa3] transition duration-300"
+            >
+              <FaWhatsapp className="text-lg" />
+            </a>
 
-              </div>
+          </div>
 
         </div>
 
@@ -98,6 +98,7 @@ export default function Footer() {
       <div className="border-t border-white/20 text-center text-sm md:text-base text-white/70 py-4">
         © {new Date().getFullYear()} SourceXCloud. All rights reserved.
       </div>
+
     </footer>
   );
 }
