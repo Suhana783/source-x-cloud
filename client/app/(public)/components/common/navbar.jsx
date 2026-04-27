@@ -2,13 +2,16 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { servicesData } from "../../lib/servicesData";
 
 export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [activeMenu, setActiveMenu] = useState(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileServiceOpen, setMobileServiceOpen] = useState(null);
 
   return (
-    <nav className="w-full bg-gray-50 border-b relative">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <nav className="w-full bg-gray-100 border-b relative">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
 
         {/* LOGO */}
         <div className="flex items-center gap-3">
@@ -20,60 +23,142 @@ export default function Navbar() {
           </h1>
         </div>
 
-        {/* DESKTOP NAV */}
-        <div className="hidden md:flex items-center gap-6 text-base font-medium text-gray-700">
-          {["Home", "About", "Services", "Courses", "Contact"].map((item) => (
-            <Link
-              key={item}
-              href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
-              className="px-3 py-1 rounded-md hover:bg-[#2d7fa3]/10 hover:text-[#2d7fa3] transition"
-            >
-              {item}
-            </Link>
-          ))}
+        {/* DESKTOP MENU */}
+        <div className="hidden md:flex gap-6 text-gray-700">
+
+          <Link href="/">Home</Link>
+          <Link href="/about">About</Link>
+
+          {/* SERVICES DROPDOWN */}
+          <div
+            className="relative"
+            onMouseEnter={() => setActiveMenu("services")}
+            onMouseLeave={() => setActiveMenu(null)}
+          >
+            <span className="cursor-pointer flex items-center gap-1">
+              Services ▾
+            </span>
+
+            {activeMenu === "services" && (
+              <div className="absolute top-full right-0 bg-white shadow-xl rounded-md w-[320px] py-3 z-50">
+
+                {servicesData.map((service, i) => (
+                  <div key={i} className="relative group">
+
+                    <div className="flex justify-between items-center px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                      <Link
+                        href={`/services/${service.slug}`}
+                        className="text-gray-700 hover:text-blue-600 w-full"
+                      >
+                        {service.title}
+                      </Link>
+
+                      {service.children && (
+                        <span className="text-gray-400 group-hover:text-black">+</span>
+                      )}
+                    </div>
+
+                    {service.children && (
+                      <div className="absolute top-0 left-full ml-1 hidden group-hover:block bg-white shadow-xl rounded-md w-[260px] py-3">
+
+                        {service.children.map((sub, j) => (
+                          <Link
+                            key={j}
+                            href={`/services/${service.slug}/${sub.slug}`}
+                            className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600"
+                          >
+                            {sub.title}
+                          </Link>
+                        ))}
+
+                      </div>
+                    )}
+                  </div>
+                ))}
+
+              </div>
+            )}
+          </div>
+
+          <Link href="/courses">Courses</Link>
+          <Link href="/contact">Contact</Link>
         </div>
 
         {/* HAMBURGER */}
         <button
-          onClick={() => setMenuOpen(true)}
-          className="md:hidden text-gray-700 text-xl"
+          className="md:hidden text-2xl text-gray-700"
+          onClick={() => setMobileOpen(!mobileOpen)}
         >
           ☰
         </button>
       </div>
 
-      {/* OVERLAY */}
-      {menuOpen && (
-        <div
-          className="fixed inset-0 bg-black/30 z-40"
-          onClick={() => setMenuOpen(false)}
-        />
-      )}
+      {/* MOBILE MENU */}
+      {mobileOpen && (
+        <div className="md:hidden bg-white border-t px-6 py-4 space-y-3 text-gray-700">
 
-      {/* SIDEBAR */}
-      <div
-        className={`fixed top-0 right-0 h-full w-64 bg-white shadow-lg z-50 transform transition-transform duration-300
-        ${menuOpen ? "translate-x-0" : "translate-x-full"}`}
-      >
-        {/* CLOSE BUTTON */}
-        <div className="flex justify-end p-4">
-          <button onClick={() => setMenuOpen(false)}>✕</button>
-        </div>
+          <Link href="/" className="block">Home</Link>
+          <Link href="/about" className="block">About</Link>
 
-        {/* MOBILE LINKS */}
-        <div className="flex flex-col gap-4 px-6 text-base text-gray-700 font-medium">
-          {["Home", "About", "Services", "Courses", "Contact"].map((item) => (
-            <Link
-              key={item}
-              href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
-              className="px-3 py-2 rounded-md hover:bg-[#2d7fa3]/10 hover:text-[#2d7fa3] transition"
-              onClick={() => setMenuOpen(false)}
+          {/* MOBILE SERVICES */}
+          <div>
+            <div
+              className="flex justify-between items-center cursor-pointer"
+              onClick={() =>
+                setMobileServiceOpen(
+                  mobileServiceOpen === "services" ? null : "services"
+                )
+              }
             >
-              {item}
-            </Link>
-          ))}
+              <span>Services</span>
+              <span>{mobileServiceOpen === "services" ? "-" : "+"}</span>
+            </div>
+
+            {mobileServiceOpen === "services" && (
+              <div className="mt-2 pl-3 space-y-2">
+
+                {servicesData.map((service, i) => (
+                  <div key={i}>
+
+                    <div
+                      className="flex justify-between cursor-pointer"
+                      onClick={() =>
+                        setMobileServiceOpen(
+                          mobileServiceOpen === i ? null : i
+                        )
+                      }
+                    >
+                      <Link href={`/services/${service.slug}`}>
+                        {service.title}
+                      </Link>
+
+                      {service.children && <span>+</span>}
+                    </div>
+
+                    {mobileServiceOpen === i && service.children && (
+                      <div className="pl-4 mt-1 space-y-1">
+                        {service.children.map((sub, j) => (
+                          <Link
+                            key={j}
+                            href={`/services/${service.slug}/${sub.slug}`}
+                            className="block text-sm text-gray-600"
+                          >
+                            {sub.title}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+
+              </div>
+            )}
+          </div>
+
+          <Link href="/courses" className="block">Courses</Link>
+          <Link href="/contact" className="block">Contact</Link>
         </div>
-      </div>
+      )}
     </nav>
   );
 }
