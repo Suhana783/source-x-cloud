@@ -1,15 +1,50 @@
+// models/Service.js
 const mongoose = require("mongoose");
 
+const sectionSchema = new mongoose.Schema({
+  type: {
+    type: String,
+    required: true,
+    enum: ["hero", "introduction", "features", "industries", "why", "bottom"],
+  },
+  title: String,
+  subtitle: String,
+  tagline: String,
+  content: String,
+  items: [
+    {
+      text: String,
+      icon: String,
+    },
+  ],
+});
+
 const serviceSchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  slug: { type: String, unique: true },
-  description: { type: String, required: true },
-  icon: String,
-  features: [String],
-  image: String,
-  tag: { type: String },
-  category: { type: String },
-  isActive: { type: Boolean, default: true }
-}, { timestamps: true });
+  name: {
+    type: String,
+    required: true,
+  },
+  slug: {
+    type: String,
+    required: true,
+    unique: true,
+    index: true,
+  },
+  parent: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Service",
+    default: null,
+  },
+  sections: [sectionSchema],
+
+  isActive: {
+    type: Boolean,
+    default: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
 
 module.exports = mongoose.model("Service", serviceSchema);
