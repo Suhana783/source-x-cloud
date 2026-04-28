@@ -1,13 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { servicesData } from "../../lib/servicesData";
+import { formatServices } from "../../lib/formatServices";
+import { fetchServices } from "../../lib/api";
 
 export default function Navbar() {
+  const [servicesData, setServicesData] = useState([]);
   const [activeMenu, setActiveMenu] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileServiceOpen, setMobileServiceOpen] = useState(null);
+
+  useEffect(() => {
+    const loadServices = async () => {
+      try {
+        const data = await fetchServices();
+        const formatted = formatServices(data);
+        setServicesData(formatted);
+      } catch (err) {
+        console.error("Error loading services", err);
+      }
+    };
+
+    loadServices();
+  }, []);
 
   return (
     <nav className="w-full bg-gray-100 border-b relative">
@@ -64,7 +80,8 @@ export default function Navbar() {
                         {service.children.map((sub, j) => (
                           <Link
                             key={j}
-                            href={`/services/${service.slug}/${sub.slug}`}
+                            // href={`/services/${service.slug}/${sub.slug}`}
+                            href={`/services/${sub.slug}`} 
                             className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600"
                           >
                             {sub.title}
