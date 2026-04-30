@@ -1,4 +1,4 @@
-const Service = require("../../models/public/services.model");
+const Service = require("./services.model");
 const slugify = require("slugify");
 
 /**

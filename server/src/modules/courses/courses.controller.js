@@ -1,4 +1,4 @@
-const courseService = require('../../services/public/courses.services');
+const courseService = require('./courses.services');
 const asyncHandler = require('../../Utility/asyncHandler');
 
 

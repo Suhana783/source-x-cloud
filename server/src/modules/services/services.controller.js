@@ -1,4 +1,4 @@
-const serviceService = require('../../services/public/services.service');
+const serviceService = require('./services.service');
 const asyncHandler = require('../../Utility/asyncHandler');
 
 exports.createService = asyncHandler(async (req, res) => {

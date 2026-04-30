@@ -1,4 +1,4 @@
-const Course = require('../../models/public/courses.model');
+const Course = require('./courses.model');
 
 
 exports.createCourseService = async (courseData) => {
