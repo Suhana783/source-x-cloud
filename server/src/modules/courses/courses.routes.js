@@ -6,7 +6,7 @@ const {
     createCourse, 
     getAllCourses,
     getCourseById
-} = require('../../controllers/public/courses.controller');
+} = require('./courses.controller');
 
 
 router.route('/')
