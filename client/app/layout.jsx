@@ -1,5 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
+import WhatsAppButton from "../app/(public)/components/common/WhatsAppButton.jsx";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -19,6 +20,8 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-screen font-sans">
         {children}
+         {/* Floating WhatsApp */}
+        <WhatsAppButton />
       </body>
     </html>
   );

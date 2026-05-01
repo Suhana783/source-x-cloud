@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -39,9 +40,9 @@ export default function Hero() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 pt-2">
-            <button className="w-full sm:w-auto px-8 py-3.5 rounded-xl font-bold bg-[#00df81] text-[#011C26] hover:bg-[#00f08b] transition-all shadow-lg shadow-green-500/20 active:scale-95">
+            <Link href='/courses' className="w-full sm:w-auto px-8 py-3.5 rounded-xl font-bold bg-[#00df81] text-[#011C26] hover:bg-[#00f08b] transition-all shadow-lg shadow-green-500/20 active:scale-95">
               Explore Courses →
-            </button>
+            </Link>
             <button className="w-full sm:w-auto px-8 py-3.5 rounded-xl font-semibold border border-white/20 bg-white/5 text-white hover:bg-white/10 backdrop-blur-md transition-all">
               Get IT Services
             </button>

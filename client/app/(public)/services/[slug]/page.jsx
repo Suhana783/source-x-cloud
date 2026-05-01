@@ -5,7 +5,12 @@ import { useParams } from "next/navigation";
 import { fetchServiceBySlug } from "../../lib/api";
 import Navbar from "../../components/common/navbar";
 import Footer from "../../components/common/footer";
-import HeroSercices from "../../components/services/heroSercices.jsx";
+import HeroSection from "../../components/services/HeroSection";
+import IntroductionSection from "../../components/services/IntroductionSection.jsx";
+import FeaturesSection from "../../components/services/FeaturesSection";
+import IndustriesSection from "../../components/services/IndustriesSection";
+import WhySection from "../../components/services/WhySection";
+import BottomSection from "../../components/services/BottomSection";
 
 export default function ServicePage() {
   const { slug } = useParams();
@@ -29,43 +34,52 @@ export default function ServicePage() {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
-      <HeroSercices />
 
-    <div className="p-10 space-y-10">
-
-      {/* HERO */}
+        {/* HERO */}
       {service.sections
         ?.filter((sec) => sec.type === "hero")
         .map((sec, i) => (
-          <div key={i}>
-            <h1 className="text-4xl font-bold">{sec.title}</h1>
-            <p className="text-lg text-gray-600">{sec.subtitle}</p>
-            <p className="text-sm text-gray-500">{sec.tagline}</p>
-          </div>
+          <HeroSection key={i} section={sec} />
         ))}
 
+
+    <div className="px-10 space-y-10">
+
+    
       {/* INTRO */}
       {service.sections
         ?.filter((sec) => sec.type === "introduction")
         .map((sec, i) => (
-          <div key={i}>
-            <h2 className="text-2xl font-semibold">{sec.title}</h2>
-            <p>{sec.content}</p>
-          </div>
+          <IntroductionSection key={i} section={sec} />
         ))}
+
 
       {/* FEATURES */}
       {service.sections
         ?.filter((sec) => sec.type === "features")
         .map((sec, i) => (
-          <div key={i}>
-            <h2 className="text-2xl font-semibold">{sec.title}</h2>
-            <ul className="list-disc ml-5">
-              {sec.items?.map((item, j) => (
-                <li key={j}>{item.text}</li>
-              ))}
-            </ul>
-          </div>
+          <FeaturesSection key={i} section={sec} />
+        ))}
+
+      {/* INDUSTRIES */}
+      {service.sections
+        ?.filter((sec) => sec.type === "industries")
+        .map((sec, i) => (
+          <IndustriesSection key={i} section={sec} />
+        ))}
+
+      {/* WHY */}
+      {service.sections
+        ?.filter((sec) => sec.type === "why")
+        .map((sec, i) => (
+          <WhySection key={i} section={sec} />
+        ))}
+
+      {/* BOTTOM */}
+      {service.sections
+        ?.filter((sec) => sec.type === "bottom")
+        .map((sec, i) => (
+          <BottomSection key={i} section={sec} />
         ))}
 
     </div>
