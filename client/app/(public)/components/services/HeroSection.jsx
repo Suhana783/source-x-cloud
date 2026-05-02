@@ -3,6 +3,8 @@ import heroImg from "../../../../assets/images/service-hero.png";
 
 export default function HeroSection({ section }) {
   if (!section) return null;
+  const imageSrc = section?.image?.url || heroImg;
+  const imageAlt = section?.image?.alt || "Services Hero";
 
   return (
     <section className="relative min-h-[70vh] flex items-center overflow-hidden text-white">
@@ -10,10 +12,12 @@ export default function HeroSection({ section }) {
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src={heroImg}
-          alt="Services Hero"
+          src={imageSrc}
+          alt={imageAlt}
           fill
-          priority
+          // priority
+          unoptimized 
+          loading="eager"
           className="object-cover object-center "
         />
 

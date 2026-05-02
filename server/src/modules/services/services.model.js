@@ -23,9 +23,22 @@ const sectionSchema = new mongoose.Schema({
     },
   },
 
+   // Work image (for introduction section)
+  workImage: {
+    url: {
+      type: String,
+      default: "",
+    },
+    alt: {
+      type: String,
+      default: "",
+    },
+  },
+
   items: [
     {
       text: String,
+      description: String,
       icon: String,
     },
   ],

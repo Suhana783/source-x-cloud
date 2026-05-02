@@ -1,5 +1,3 @@
-
-
 export default function IntroductionSection({ section }) {
   if (!section) return null;
 
@@ -14,9 +12,20 @@ export default function IntroductionSection({ section }) {
           {section.title}
         </h2>
 
-        <p className="text-gray-700 leading-8 text-lg">
+        <p className="text-gray-700 leading-8 text-lg mb-8">
           {section.content}
         </p>
+
+        {/* Work Image below content */}
+        {section.workImage?.url && (
+          <div className="mt-6">
+            <img
+              src={section.workImage.url}
+              alt={section.workImage.alt || section.title}
+              className="w-full rounded-lg shadow-md object-cover"
+            />
+          </div>
+        )}
       </div>
     </section>
   );

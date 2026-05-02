@@ -3,18 +3,20 @@ const validate = (schema, source = "body") => (req, res, next) => {
     const data = req[source];
     const result = schema.safeParse(req.body);
 
-    if (!result.success) {
-        const errors = result.error.errors.map(err => err.message);
+  const result = schema.safeParse(data);
 
-        return res.status(400).json({
-            success: false,
-            message: "Validation failed",
-            errors
-        });
-    }
-    
-    req[source] = result.data;
-    next();
-}  
+  if (!result.success) {
+    const errors = result.error.errors.map((err) => err.message);
+
+    return res.status(400).json({
+      success: false,
+      message: "Validation failed",
+      errors,
+    });
+  }
+
+  req[source] = result.data;
+  next();
+};
 
 module.exports = validate;

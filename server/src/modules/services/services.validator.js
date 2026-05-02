@@ -9,12 +9,12 @@ const objectIdSchema = z
 const itemSchema = z
   .object({
     text: z.string().trim().optional(),
+    description: z.string().trim().optional(),
     icon: z.string().trim().optional(),
   })
-  .refine((data) => data.text || data.icon, {
-    message: "Item must have text or icon",
-  });
-
+  .refine((data) => data.text || data.description || data.icon, {
+  message: "Item must have at least text, description, or icon",
+});
 
 const sectionSchema = z
   .object({
@@ -34,6 +34,12 @@ const sectionSchema = z
       url: z.string().optional(),
       alt: z.string().optional(),
     }).optional(),
+    workImage: z
+      .object({
+        url: z.string().trim().optional(),
+        alt: z.string().trim().optional(),
+      })
+      .optional(),
     items: z.array(itemSchema).optional(),
   })
   .refine(
@@ -42,7 +48,9 @@ const sectionSchema = z
       data.subtitle ||
       data.tagline ||
       data.content ||
-      (data.items && data.items.length > 0),
+      (data.items && data.items.length > 0) ||
+      data.image?.url ||
+      data.workImage?.url, 
     {
       message: "Section must have at least one content field",
     }

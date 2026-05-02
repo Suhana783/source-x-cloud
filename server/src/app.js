@@ -8,7 +8,7 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use('/api/modules/courses', require('./modules/courses/courses.routes'));
+// app.use('/api/modules/courses', require('./modules/courses/courses.routes'));
 app.use('/api/modules/services', require('./modules/services/services.routes'));
 
 app.get('/', (req, res) => {
