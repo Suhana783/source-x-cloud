@@ -11,6 +11,18 @@ const sectionSchema = new mongoose.Schema({
   subtitle: String,
   tagline: String,
   content: String,
+  // Hero image field
+  image: {
+    url: {
+      type: String,
+      default: "",
+    },
+    alt: {
+      type: String,
+      default: "",
+    },
+  },
+
   items: [
     {
       text: String,

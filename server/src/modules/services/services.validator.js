@@ -30,6 +30,10 @@ const sectionSchema = z
     subtitle: z.string().trim().optional(),
     tagline: z.string().trim().optional(),
     content: z.string().trim().optional(),
+    image: z.object({
+      url: z.string().optional(),
+      alt: z.string().optional(),
+    }).optional(),
     items: z.array(itemSchema).optional(),
   })
   .refine(
