@@ -1,70 +1,48 @@
-const Course = require('./courses.model');
+const {
+  createCourseService,
+  getAllCoursesService,
+  getCourseByIdService,
+  updateCourseService,
+  deleteCourseService
+} = require('./courses.services');
 
 
-// Create Courses 
+// Create Course
 exports.createCourse = async (req, res, next) => {
-    
-try {
-    const data = req.body
-    const course = await Course.create(data);
+  try {
+    const course = await createCourseService(req.body);
 
     res.status(201).json({
-        success: true,
-        data: course
+      success: true,
+      data: course
     });
   } catch (error) {
     next(error);
   }
-
 };
+
 
 // Get All Courses
 exports.getAllCourses = async (req, res, next) => {
-
   try {
-    const courses = await Course.find();
+    const courses = await getAllCoursesService();
 
     res.status(200).json({
-      success : true,
-      data : courses
-    })
+      success: true,
+      data: courses
+    });
   } catch (error) {
-    next (error)
+    next(error);
   }
 };
+
 
 // Get Single Course
 exports.getCourse = async (req, res, next) => {
-
-  try {
-    const {id} = req.params;
-
-    const course = await Course.findById(id);
-
-    if (!course) {
-      return next(new Error("Course not found"));
-    }
-
-    res.status(200).json({
-      success : true,
-      data : course
-    });
-
-  } catch (error) {
-    next (error);
-  }
-};
-
-// Update Courses 
-exports.updateCourse = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const course = await Course.findByIdAndUpdate(
-      id,
-      req.body,
-      { new: true }
-    );
+    const course = await getCourseByIdService(id);
 
     if (!course) {
       return next(new Error("Course not found"));
@@ -74,27 +52,47 @@ exports.updateCourse = async (req, res, next) => {
       success: true,
       data: course
     });
-
   } catch (error) {
     next(error);
   }
 };
 
 
-// Delete Course 
-exports.deleteCourse = async (req, res, next) => {
+// Update Course
+exports.updateCourse = async (req, res, next) => {
   try {
-    const {id} = req.params;
+    const { id } = req.params;
 
-    const course = await Course.findByIdAndDelete(id);
+    const course = await updateCourseService(id, req.body);
 
     if (!course) {
-      return next (new Error ("Course not found"));
+      return next(new Error("Course not found"));
     }
 
     res.status(200).json({
-      success : true,
-      message : "Course deleted successsfully"
+      success: true,
+      data: course
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+// Delete Course
+exports.deleteCourse = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const course = await deleteCourseService(id);
+
+    if (!course) {
+      return next(new Error("Course not found"));
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Course deleted successfully"
     });
   } catch (error) {
     next(error);
