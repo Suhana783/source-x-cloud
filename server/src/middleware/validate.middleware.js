@@ -1,7 +1,5 @@
 const validate = (schema, source = "body") => (req, res, next) => {
-    
-    const data = req[source];
-    const result = schema.safeParse(req.body);
+  const data = req[source];
 
   const result = schema.safeParse(data);
 
