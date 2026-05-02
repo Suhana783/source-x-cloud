@@ -1,5 +1,7 @@
+const API_BASE_URL = (process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5000").replace(/\/$/, "");
+
 export const fetchServices = async () => {
-  const res = await fetch("http://localhost:5000/api/public/services");
+  const res = await fetch(`${API_BASE_URL}/api/modules/services`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch services");
@@ -11,7 +13,7 @@ export const fetchServices = async () => {
 };
 
 export const fetchServiceBySlug = async (slug) => {
-  const res = await fetch(`http://localhost:5000/api/public/services/${slug}`);
+  const res = await fetch(`${API_BASE_URL}/api/modules/services/${slug}`);
 
   if (!res.ok) {
     throw new Error("Service not found");
